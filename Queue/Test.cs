@@ -6,10 +6,12 @@ namespace Queue
     {
         public static void Main()
         {
-            var queue = new Queue<IComparable>(5, 6, 9, 2, 7, 10, 11, 4);
+            var queue = new Queue<int>();
+            Random r = new (Environment.TickCount);
+            for (int i = 0; i < 10; i++) queue.Push(r.Next(-99, 100));
             
             Console.WriteLine(queue);
-            QueueTools.Swap(queue, 3, 5);
+            QueueSortTools.SelectionSort(queue);
             Console.WriteLine(queue);
         }
     }

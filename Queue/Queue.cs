@@ -29,7 +29,7 @@ namespace Queue
         [MaybeNull]
         public Node<TValue> Tail { get; private set;  }
         public int Size { get; private set; }
-
+        
         public Queue(params TValue[] values)
         {
             Size = 0;
