@@ -95,77 +95,73 @@ namespace Queue
             }
         }
 
-   //      public static void MergeSort<TValue>(Queue<TValue> queue)
-   //      {
-   //          int blockSizeIterator;
-   //          Queue<TValue> outQueue = new();
-   //
-   //          for (blockSizeIterator = 1; blockSizeIterator < queue.Size; blockSizeIterator *= 2)
-			// {
-			// 	int blockIterator;
-			// 	for (blockIterator = 0; blockIterator < queue.Size - blockSizeIterator; blockIterator += 2 * blockSizeIterator)
-			// 	{
-			// 		var leftBlockIterator = 0;
-			// 		var rightBlockIterator = 0;
-			// 		var leftBorder = blockIterator;
-			// 		var midBorder = blockIterator + blockSizeIterator;
-			// 		var rightBorder = blockIterator + 2 * blockSizeIterator;
-			// 		
-			// 		rightBorder = rightBorder < queue.Size ? rightBorder : queue.Size;
-			// 		Queue<TValue> sortedBlock = new ();
-			// 		
-			// 		while (leftBorder + leftBlockIterator < midBorder && midBorder + rightBlockIterator < rightBorder)
-			// 		{
-			// 			if (Comparer.Default.Compare(QueueTools.Seek(queue, leftBorder + leftBlockIterator), QueueTools.Seek(queue, midBorder + rightBlockIterator)) == -1)
-			// 			{
-			// 				QueueTools.PushByPos(sortedBlock,
-			// 					QueueTools.Seek(queue, leftBorder + leftBlockIterator),
-			// 					leftBlockIterator + rightBlockIterator);
-			// 				
-			// 				leftBlockIterator += 1;
-			// 			}
-			// 			else
-			// 			{
-			// 				QueueTools.PushByPos(sortedBlock,
-			// 					QueueTools.Seek(queue, midBorder + rightBlockIterator),
-			// 					leftBlockIterator + rightBlockIterator);
-			// 				
-			// 				rightBlockIterator += 1;
-			// 			}
-			// 		}
-			// 		
-			// 		while (leftBorder + leftBlockIterator < midBorder)
-			// 		{
-			// 			QueueTools.PushByPos(sortedBlock,
-			// 				QueueTools.Seek(queue, leftBorder + leftBlockIterator),
-			// 				leftBlockIterator + rightBlockIterator);
-			// 			
-			// 			leftBlockIterator += 1;
-			// 		}
-			// 		
-			// 		while (midBorder + rightBlockIterator < rightBorder)
-			// 		{
-			// 			QueueTools.PushByPos(sortedBlock,
-			// 				QueueTools.Seek(queue, midBorder + rightBlockIterator),
-			// 				leftBlockIterator + rightBlockIterator);
-			// 			
-			// 			rightBlockIterator += 1;
-			// 		}
-			// 		
-   //
-			// 		for (int mergeIterator = 0; mergeIterator < leftBlockIterator + rightBlockIterator; mergeIterator++)
-			// 		{ 
-			// 			QueueTools.PushByPos(outQueue,
-			// 				QueueTools.Seek(sortedBlock, mergeIterator),
-			// 				leftBorder + mergeIterator);
-			// 		}
-			// 		
-			// 		Console.WriteLine(sortedBlock);
-			// 	}
-			// }
-   //          
-   //          QueueTools.Clean(queue);
-   //          while(!outQueue.IsEmpty()) queue.Push(outQueue.Pop());
-   //      }
+        public static void MergeSort<TValue>(Queue<TValue> queue)
+        {
+            int blockSizeIterator;
+
+            for (blockSizeIterator = 1; blockSizeIterator < queue.Size; blockSizeIterator *= 2)
+			{
+				int blockIterator;
+				for (blockIterator = 0; blockIterator < queue.Size - blockSizeIterator; blockIterator += 2 * blockSizeIterator)
+				{
+					var leftBlockIterator = 0;
+					var rightBlockIterator = 0;
+					var leftBorder = blockIterator;
+					var midBorder = blockIterator + blockSizeIterator;
+					var rightBorder = blockIterator + 2 * blockSizeIterator;
+					
+					rightBorder = rightBorder < queue.Size ? rightBorder : queue.Size;
+					Queue<TValue> sortedBlock = new ();
+					
+					while (leftBorder + leftBlockIterator < midBorder && midBorder + rightBlockIterator < rightBorder)
+					{
+						if (Comparer.Default.Compare(QueueTools.Seek(queue, leftBorder + leftBlockIterator),
+							QueueTools.Seek(queue, midBorder + rightBlockIterator)) == -1)
+						{
+							QueueTools.PushByPos(sortedBlock,
+								QueueTools.Seek(queue, leftBorder + leftBlockIterator),
+								leftBlockIterator + rightBlockIterator);
+							
+							leftBlockIterator += 1;
+						}
+						else
+						{
+							QueueTools.PushByPos(sortedBlock,
+								QueueTools.Seek(queue, midBorder + rightBlockIterator),
+								leftBlockIterator + rightBlockIterator);
+							
+							rightBlockIterator += 1;
+						}
+					}
+					
+					while (leftBorder + leftBlockIterator < midBorder)
+					{
+						QueueTools.PushByPos(sortedBlock,
+							QueueTools.Seek(queue, leftBorder + leftBlockIterator),
+							leftBlockIterator + rightBlockIterator);
+						
+						leftBlockIterator += 1;
+					}
+					
+					while (midBorder + rightBlockIterator < rightBorder)
+					{
+						QueueTools.PushByPos(sortedBlock,
+							QueueTools.Seek(queue, midBorder + rightBlockIterator),
+							leftBlockIterator + rightBlockIterator);
+						
+						rightBlockIterator += 1;
+					}
+					
+   
+					for (int mergeIterator = 0; mergeIterator < leftBlockIterator + rightBlockIterator; mergeIterator++)
+					{
+						QueueTools.PopByPos(queue, leftBorder + mergeIterator);
+						QueueTools.PushByPos(queue,
+							QueueTools.Seek(sortedBlock, mergeIterator),
+							leftBorder + mergeIterator);
+					}
+				}
+			}
+        }
     }
 }

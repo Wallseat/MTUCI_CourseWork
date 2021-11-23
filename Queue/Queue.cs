@@ -17,7 +17,7 @@ namespace Queue
 
         public override string ToString()
         {
-            return $"Node<Value: {Value}>";
+            return Value?.ToString() ?? "";
         }
     }
 
@@ -84,11 +84,11 @@ namespace Queue
             {
                 str += node;
                 node = node.Next;
-                if (node != null) str += ", ";
+                if (node != null) str += " ";
 
             }
 
-            return "Queue[" + str + "]";
+            return str;
         }
     }
 }

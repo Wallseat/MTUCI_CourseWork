@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="Sort WPF" 
+        Height="500" Width="600">
+    <Grid x:Name="MainGrid">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Grid x:Name="ControlsGrid" Grid.Row="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.33*"/>
+                <ColumnDefinition Width="0.34*"/>
+                <ColumnDefinition Width="0.33*"/>
+            </Grid.ColumnDefinitions>
+            
+            <GroupBox Grid.Column="0" Header="Выбор типа данных" Margin="10 5 5 5">
+                <StackPanel>
+                    <RadioButton Name="INT" Checked="OnDataTypeChange" IsChecked="True">int</RadioButton>
+                    <RadioButton Name="STRING" Checked="OnDataTypeChange">string</RadioButton>
+                    <RadioButton Name="DOUBLE" Checked="OnDataTypeChange">double</RadioButton>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="Сгенерировать данные" Padding="5" Margin="5">
+                <StackPanel>
+                    <Label x:Name="WarnLabel" Visibility="Hidden" Foreground="Red">Некорректный ввод!</Label>
+                    <TextBox 
+                        x:Name="DataCount" 
+                        Margin="0, 0, 0, 5" 
+                        KeyUp="DataCount_OnKeyUp">
+                    </TextBox>
+                    <Button x:Name="BtnGenerate" Click="BtnGenerate_OnClick">Сгенерировать!</Button>
+                </StackPanel>
+            </GroupBox>
+            <Button x:Name="BtnOpenSort" 
+                    Grid.Column="2"
+                    Height="Auto" 
+                    Margin="5 5 10 5" 
+                    Click="BtnOpenSort_OnClick">Открыть окно сортировок</Button>
+        </Grid>
+        <TextBox Grid.Row="1" 
+                 Height="Auto" 
+                 IsReadOnly="True" 
+                 AcceptsReturn="True" 
+                 TextWrapping="Wrap" 
+                 Margin="10px 5px 10px 10px"
+                 x:Name="DataBox">
+        </TextBox>
     </Grid>
 </Window>
